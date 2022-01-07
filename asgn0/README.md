@@ -8,7 +8,7 @@ The canonical `"Hello World!"` program in C.
 $ clang -Wall -Werror -Wextra -Wpedantic -o hello hello.c
 ```
 
-## Running
+##Running
 
 ```
 $ ./hello
