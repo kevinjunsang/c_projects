@@ -11,7 +11,7 @@ for n in {1..10000}; do
 	./collatz -n $n | wc -l >> /tmp/length.dat
 done
 
-for n in {1..100}; do
+for n in {1..10000}; do
 	./collatz -n $n | sort -n | tail -n 1 >> /tmp/max.dat
 done
 
