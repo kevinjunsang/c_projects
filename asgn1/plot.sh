@@ -7,6 +7,8 @@ rm -f /tmp/length.dat
 rm -f /tmp/max.dat
 rm -f /tmp/his.dat
 
+make clean && make collatz
+
 for n in {1..10000}; do
 	./collatz -n $n | wc -l >> /tmp/length.dat
 done
