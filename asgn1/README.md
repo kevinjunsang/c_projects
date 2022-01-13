@@ -4,7 +4,7 @@
 Program a shell script in bash to create three graphs to represent the collatz series.
 
 ## Build
-Building the collatz program manuallyy
+Building the collatz program manually
 ```
 $ clang -Wall -Werror -Wextra -Wpedantic -o collatz collatz.c
 ```
@@ -32,6 +32,6 @@ $ rm -f collatz *.o
 ```
 
 ## Errors
-In order to match the example graphs exactly, outliers are not shown in both the max and histogram graphs
-We needed to set maxes on the axis in order to create a pleasant graphs, leading to a loss of some data
+In order to match the example graphs exactly, outliers are not shown in both the max and histogram graphs.
+We needed to set maxes on the axis in order to create a pleasant graphs, leading to a loss of some data.
 
