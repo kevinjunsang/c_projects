@@ -6,7 +6,7 @@ CFLAGS = -Wall -Wextra -Werror -Wpedantic
 all: integrate
 
 integrate: integrate.o functions.o mathlib.o
-	$(CC) -o integrate integrate.o functions.o mathlib.o
+	$(CC) -lm -o integrate integrate.o functions.o mathlib.o
 
 integrate.o: integrate.c
 	$(CC) $(CFLAGS) -c integrate.c -o integrate.o
