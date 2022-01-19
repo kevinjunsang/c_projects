@@ -56,44 +56,112 @@ int main(int argc, char **argv) {
     }
     if (A) {
         printf("sqrt(1 - x^4) ,%.6lf,%.6lf,%i\n", low, high, count);
-        for (uint32_t i = 2; i < count + 1; i += 2) {
-            integrate(a, low, high, i);
+        float A[count / 2];
+        for (uint32_t i = 0; i < count / 2; i += 1) {
+            A[i] = 2 + 2 * i;
+            A[i] = integrate(a, low, high, A[i]);
+        }
+        for (uint32_t i = 0; i < count / 2; i += 1) {
+            printf("%i,%.15lf\n", 2 + 2 * i, A[i]);
         }
     }
     if (B) {
         printf("1/log(x) ,%.6lf,%.6lf,%i\n", low, high, count);
-        for (uint32_t i = 2; i < count + 1; i += 2) {
-            integrate(b, low, high, i);
+        float A[count / 2];
+        for (uint32_t i = 0; i < count / 2; i += 1) {
+            A[i] = 2 + 2 * i;
+            A[i] = integrate(b, low, high, A[i]);
+        }
+        for (uint32_t i = 0; i < count / 2; i += 1) {
+            printf("%i,%.15lf\n", 2 + 2 * i, A[i]);
         }
     }
     if (C) {
         printf("exp(-x^2) ,%.6lf,%.6lf,%i\n", low, high, count);
-        for (uint32_t i = 2; i < count + 1; i += 2) {
-            integrate(c, low, high, i);
+        float A[count / 2];
+        for (uint32_t i = 0; i < count / 2; i += 1) {
+            A[i] = 2 + 2 * i;
+            A[i] = integrate(c, low, high, A[i]);
+        }
+        for (uint32_t i = 0; i < count / 2; i += 1) {
+            printf("%i,%.15lf\n", 2 + 2 * i, A[i]);
         }
     }
     if (D) {
         printf("sin(x^2) ,%.6lf,%.6lf,%i\n", low, high, count);
-        for (uint32_t i = 2; i < count + 1; i += 2) {
-            integrate(d, low, high, i);
+        float A[count / 2];
+        for (uint32_t i = 0; i < count / 2; i += 1) {
+            A[i] = 2 + 2 * i;
+            A[i] = integrate(d, low, high, A[i]);
+        }
+        for (uint32_t i = 0; i < count / 2; i += 1) {
+            printf("%i,%.15lf\n", 2 + 2 * i, A[i]);
         }
     }
     if (E) {
         printf("cos(x^2) ,%.6lf,%.6lf,%i\n", low, high, count);
-        for (uint32_t i = 2; i < count + 1; i += 2) {
-            integrate(e, low, high, i);
+        float A[count / 2];
+        for (uint32_t i = 0; i < count / 2; i += 1) {
+            A[i] = 2 + 2 * i;
+            A[i] = integrate(e, low, high, A[i]);
+        }
+        for (uint32_t i = 0; i < count / 2; i += 1) {
+            printf("%i,%.15lf\n", 2 + 2 * i, A[i]);
         }
     }
     if (F) {
         printf("log(log(x)) ,%.6lf, %.6lf, %i\n", low, high, count);
-        for (uint32_t i = 2; i < count + 1; i += 2) {
-            integrate(f, low, high, i);
+        float A[count / 2];
+        for (uint32_t i = 0; i < count / 2; i += 1) {
+            A[i] = 2 + 2 * i;
+            A[i] = integrate(f, low, high, A[i]);
+        }
+        for (uint32_t i = 0; i < count / 2; i += 1) {
+            printf("%i,%.15lf\n", 2 + 2 * i, A[i]);
         }
     }
     if (G) {
         printf("sin(x)/x ,%.6lf, %.6lf, %i\n", low, high, count);
-        for (uint32_t i = 2; i < count + 1; i += 2) {
-            integrate(f, 1e-60, high, i);
+        float A[count / 2];
+        for (uint32_t i = 0; i < count / 2; i += 1) {
+            A[i] = 2 + 2 * i;
+            A[i] = 2 * integrate(g, 1e-60, high, A[i]);
+        }
+        for (uint32_t i = 0; i < count / 2; i += 1) {
+            printf("%i,%.15lf\n", 2 + 2 * i, A[i]);
+        }
+    }
+    if (H) {
+        printf("exp(-x)/x ,%.6lf, %.6lf, %i\n", low, high, count);
+        float A[count / 2];
+        for (uint32_t i = 0; i < count / 2; i += 1) {
+            A[i] = 2 + 2 * i;
+            A[i] = integrate(h, low, high, A[i]);
+        }
+        for (uint32_t i = 0; i < count / 2; i += 1) {
+            printf("%i,%.15lf\n", 2 + 2 * i, A[i]);
+        }
+    }
+    if (I) {
+        printf("exp(exp(x)) ,%.6lf, %.6lf, %i\n", low, high, count);
+        float A[count / 2];
+        for (uint32_t k = 0; k < count / 2; k += 1) {
+            A[k] = 2 + 2 * k;
+            A[k] = integrate(i, low, high, A[k]);
+        }
+        for (uint32_t i = 0; i < count / 2; i += 1) {
+            printf("%i,%.15lf\n", 2 + 2 * i, A[i]);
+        }
+    }
+    if (J) {
+        printf("sqrt(sin^2(x) + cos^2(x)) ,%.6lf, %.6lf, %i\n", low, high, count);
+        float A[count / 2];
+        for (uint32_t i = 0; i < count / 2; i += 1) {
+            A[i] = 2 + 2 * i;
+            A[i] = integrate(j, low, high, A[i]);
+        }
+        for (uint32_t i = 0; i < count / 2; i += 1) {
+            printf("%i,%.15lf\n", 2 + 2 * i, A[i]);
         }
     }
 }
