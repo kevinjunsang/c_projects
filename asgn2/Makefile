@@ -14,7 +14,7 @@ integrate.o: integrate.c
 functions.o: functions.c
 	$(CC) $(CFLAGS) -c functions.c -o functions.o
 
-mathlib.o: mathlib.c
+mathlib.o:  mathlib.c
 	$(CC) $(CFLAGS) -c mathlib.c -o mathlib.o
 
 clean:
