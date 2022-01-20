@@ -8,6 +8,7 @@
 
 #define PI 3.14159265
 
+//integrate function
 double integrate(double (*f)(double x), double a, double b, uint32_t n) {
     double h = (b - a) / n;
     double sum = (*f)(a) + (*f)(b);
@@ -20,7 +21,8 @@ double integrate(double (*f)(double x), double a, double b, uint32_t n) {
     sum *= h / 3.0;
     return sum;
 }
-
+//getopt loop
+//takes inputs for function, low, high, and partition count
 int main(int argc, char **argv) {
     int opt = 0;
     bool A = false;
@@ -55,6 +57,7 @@ int main(int argc, char **argv) {
         default: fprintf(stderr, "error\n"); return 1;
         }
     }
+    //sqrt(1 - x^4) function
     if (A) {
         printf("sqrt(1 - x^4) ,%.6lf,%.6lf,%i\n", low, high, count);
         float A[count / 2];
@@ -66,6 +69,7 @@ int main(int argc, char **argv) {
             printf("%i,%.15lf\n", 2 + 2 * i, A[i]);
         }
     }
+    //1/log(x) function
     if (B) {
         printf("1/log(x) ,%.6lf,%.6lf,%i\n", low, high, count);
         float A[count / 2];
@@ -77,6 +81,7 @@ int main(int argc, char **argv) {
             printf("%i,%.15lf\n", 2 + 2 * i, A[i]);
         }
     }
+    //exp(-x^2) function
     if (C) {
         printf("exp(-x^2) ,%.6lf,%.6lf,%i\n", low, high, count);
         float A[count / 2];
@@ -88,6 +93,7 @@ int main(int argc, char **argv) {
             printf("%i,%.15lf\n", 2 + 2 * i, A[i]);
         }
     }
+    //sin(x^2) function
     if (D) {
         printf("sin(x^2) ,%.6lf,%.6lf,%i\n", low, high, count);
         float A[count / 2];
@@ -99,6 +105,7 @@ int main(int argc, char **argv) {
             printf("%i,%.15lf\n", 2 + 2 * i, A[i]);
         }
     }
+    //cos(x^2) function
     if (E) {
         printf("cos(x^2) ,%.6lf,%.6lf,%i\n", low, high, count);
         float A[count / 2];
@@ -110,6 +117,7 @@ int main(int argc, char **argv) {
             printf("%i,%.15lf\n", 2 + 2 * i, A[i]);
         }
     }
+    //log(log(x)) function
     if (F) {
         printf("log(log(x)) ,%.6lf, %.6lf, %i\n", low, high, count);
         float A[count / 2];
@@ -121,6 +129,8 @@ int main(int argc, char **argv) {
             printf("%i,%.15lf\n", 2 + 2 * i, A[i]);
         }
     }
+    //sin(x)/x function
+    //need to avoid 0, since sin(0)/0 can not be computed
     if (G) {
         printf("sin(x)/x ,%.6lf, %.6lf, %i\n", low, high, count);
         float A[count / 2];
@@ -132,6 +142,7 @@ int main(int argc, char **argv) {
             printf("%i,%.15lf\n", 2 + 2 * i, A[i]);
         }
     }
+    //exp(-x)/x function
     if (H) {
         printf("exp(-x)/x ,%.6lf, %.6lf, %i\n", low, high, count);
         float A[count / 2];
@@ -143,6 +154,7 @@ int main(int argc, char **argv) {
             printf("%i,%.15lf\n", 2 + 2 * i, A[i]);
         }
     }
+    //exp(exp(x)) function
     if (I) {
         printf("exp(exp(x)) ,%.6lf, %.6lf, %i\n", low, high, count);
         float A[count / 2];
@@ -154,6 +166,7 @@ int main(int argc, char **argv) {
             printf("%i,%.15lf\n", 2 + 2 * i, A[i]);
         }
     }
+    //sqrt(sin^2(x) + cos^2(x)) function
     if (J) {
         printf("sqrt(sin^2(x) + cos^2(x)) ,%.6lf, %.6lf, %i\n", low, high, count);
         float A[count / 2];
@@ -165,6 +178,7 @@ int main(int argc, char **argv) {
             printf("%i,%.15lf\n", 2 + 2 * i, A[i]);
         }
     }
+    //synopsis and usage
     if (Z) {
         fprintf(stderr, "SYNOPSIS\n"
                         "    Approximates Numerical Integration Using Simpson's 1/3 Rule\n"

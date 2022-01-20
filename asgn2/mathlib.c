@@ -8,6 +8,7 @@ static inline double Abs(double x) {
     return x < 0.0 ? -x : x;
 }
 
+//e^x function
 double Exp(double x) {
     double term = 1.0;
     double sum = term;
@@ -24,6 +25,8 @@ double Exp(double x) {
     }
 }
 
+//sin(x) function
+//first while loop to keep x in {-2pi,2pi} bounds
 double Sin(double x) {
     while (Abs(x) > 2 * PI) {
         if (x > 0) {
@@ -45,6 +48,8 @@ double Sin(double x) {
     return value;
 }
 
+//cos(x) functions
+//same first while loop as sin(x)
 double Cos(double x) {
     while (Abs(x) > 2 * PI) {
         if (x > 0) {
@@ -66,6 +71,8 @@ double Cos(double x) {
     return value;
 }
 
+//Sqrt(x)
+//first while loop is scaling to reduce error
 double Sqrt(double x) {
     double f = 1.0;
     while (x > 1) {
@@ -81,6 +88,8 @@ double Sqrt(double x) {
     return y * f;
 }
 
+//log(x) function
+//first while loop is scaling to reduce error
 double Log(double x) {
     double y = 1.0;
     double f = 0.0;
