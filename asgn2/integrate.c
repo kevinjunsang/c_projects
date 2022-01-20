@@ -166,27 +166,26 @@ int main(int argc, char **argv) {
         }
     }
     if (Z) {
-	    fprintf(stderr,
-			    "SYNOPSIS\n"
-			    "    Approximates Numerical Integration Using Simpson's 1/3 Rule\n"
-			    "\n"
-			    "USAGE\n"
-			    "    ./integrate [-abcdefghijp:q:n:] [-p low] [-q high] [-n count]\n"
-			    "\n"
-			    "OPTIONS\n"
-			    "    -a                    sqrt(1 - x^4)\n"
-			    "    -b                    1/log(x)\n"
-		            "    -c                    exp(-x^2)\n"
-			    "    -d                    sin(x^2)\n"
-			    "    -e                    cos(x^2)\n"
-			    "    -f                    log(log(x))\n"
-			    "    -g                    sin(x)/x\n"
-		            "    -h                    exp(-x)/x\n"
-			    "    -i                    exp(exp(x))\n"
-			    "    -j                    sqrt(sin^2(x) + cos^2(x))\n"
-			    "    -n partitians         Sets Maximum number of partitions.\n"
-			    "    -p low                Sets lower bound of integral interval.\n"
-			    "    -q high               Sets higher bound of integral interval.\n"
-			    "    -H                    Display program synopsis and usage.\n");
+        fprintf(stderr, "SYNOPSIS\n"
+                        "    Approximates Numerical Integration Using Simpson's 1/3 Rule\n"
+                        "\n"
+                        "USAGE\n"
+                        "    ./integrate [-abcdefghijp:q:n:] [-p low] [-q high] [-n count]\n"
+                        "\n"
+                        "OPTIONS\n"
+                        "    -a                    sqrt(1 - x^4)\n"
+                        "    -b                    1/log(x)\n"
+                        "    -c                    exp(-x^2)\n"
+                        "    -d                    sin(x^2)\n"
+                        "    -e                    cos(x^2)\n"
+                        "    -f                    log(log(x))\n"
+                        "    -g                    sin(x)/x\n"
+                        "    -h                    exp(-x)/x\n"
+                        "    -i                    exp(exp(x))\n"
+                        "    -j                    sqrt(sin^2(x) + cos^2(x))\n"
+                        "    -n partitians         Sets Maximum number of partitions.\n"
+                        "    -p low                Sets lower bound of integral interval.\n"
+                        "    -q high               Sets higher bound of integral interval.\n"
+                        "    -H                    Display program synopsis and usage.\n");
     }
 }
