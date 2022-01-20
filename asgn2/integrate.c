@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#define pi 3.14159265
+#define PI 3.14159265
 
 double integrate(double (*f)(double x), double a, double b, uint32_t n) {
     double h = (b - a) / n;
@@ -33,9 +33,10 @@ int main(int argc, char **argv) {
     bool H = false;
     bool I = false;
     bool J = false;
+    bool Z = false;
     uint32_t count = 100;
     float low, high;
-    while ((opt = getopt(argc, argv, "abcdefghijn:p:q:H:")) != -1) {
+    while ((opt = getopt(argc, argv, "abcdefghijn:p:q:H")) != -1) {
         switch (opt) {
         case 'a': A = true; break;
         case 'b': B = true; break;
@@ -50,7 +51,7 @@ int main(int argc, char **argv) {
         case 'n': count = atoi(optarg); break;
         case 'p': low = atof(optarg); break;
         case 'q': high = atof(optarg); break;
-        case 'H': printf("hi"); break;
+        case 'H': Z = true; break;
         default: fprintf(stderr, "error\n"); return 1;
         }
     }
@@ -163,5 +164,29 @@ int main(int argc, char **argv) {
         for (uint32_t i = 0; i < count / 2; i += 1) {
             printf("%i,%.15lf\n", 2 + 2 * i, A[i]);
         }
+    }
+    if (Z) {
+	    fprintf(stderr,
+			    "SYNOPSIS\n"
+			    "    Approximates Numerical Integration Using Simpson's 1/3 Rule\n"
+			    "\n"
+			    "USAGE\n"
+			    "    ./integrate [-abcdefghijp:q:n:] [-p low] [-q high] [-n count]\n"
+			    "\n"
+			    "OPTIONS\n"
+			    "    -a                    sqrt(1 - x^4)\n"
+			    "    -b                    1/log(x)\n"
+		            "    -c                    exp(-x^2)\n"
+			    "    -d                    sin(x^2)\n"
+			    "    -e                    cos(x^2)\n"
+			    "    -f                    log(log(x))\n"
+			    "    -g                    sin(x)/x\n"
+		            "    -h                    exp(-x)/x\n"
+			    "    -i                    exp(exp(x))\n"
+			    "    -j                    sqrt(sin^2(x) + cos^2(x))\n"
+			    "    -n partitians         Sets Maximum number of partitions.\n"
+			    "    -p low                Sets lower bound of integral interval.\n"
+			    "    -q high               Sets higher bound of integral interval.\n"
+			    "    -H                    Display program synopsis and usage.\n");
     }
 }
