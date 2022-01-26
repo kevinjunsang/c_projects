@@ -36,3 +36,8 @@ quick.o: quick.c stats.h
 stats.o: stats.c
 	$(CC) $(CFLAGS) -c stats.c
 
+clean:
+	rm -f sorting *.o
+
+format:
+	clang-format -i -style=file *[c,h]
