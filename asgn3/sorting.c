@@ -59,9 +59,11 @@ int main(int argc, char **argv) {
 	if (size < elements) {
 		 elements = size;
 	}
+	uint32_t A[size];
 	uint32_t a[size];
 	for (uint32_t i = 0; i < size; i += 1) {
-		a[i] = (random() & 0x3FFFFFFF);
+		A[i] = (random() & 0x3FFFFFFF);
+		a[i] = A[i];
 	}
 	for (int i = 0; i < 4; i += 1) {
 		if (member_set(i, s)) {
@@ -69,28 +71,66 @@ int main(int argc, char **argv) {
 			case INSERT:
 				reset(&stats);
 				insertion_sort(&stats, a, size);
-				printf("Insertion Sort,"" %" PRIu32 " elements, ", elements);
+				printf("Insertion Sort,"" %" PRIu32 " elements, ", size);
 				printf("%" PRIu64 " moves, ", stats.moves);
 				printf("%" PRIu64 " compares\n", stats.compares);
-				for (uint32_t i = 0; i < size; i += 1) {
+				for (uint32_t i = 0; i < elements; i += 1) {
 					printf("%13" PRIu32, a[i]);
 					if ((i + 1) % 5 == 0) {
 						printf("\n");
 					}
 				}
+				for (uint32_t i = 0; i < size; i += 1) {
+					a[i] = A[i];
+				}
 				break;
-			case QUICK:
-				reset(&stats);
-				quick_sort(&stats, a, size);
-                                printf("Quick Sort,"" %" PRIu32 " elements, ", elements);
+                        case BATCHER:
+                                reset(&stats);
+                                batcher_sort(&stats, a, size);
+                                printf("Batcher Sort,"" %" PRIu32 " elements, ", size);
                                 printf("%" PRIu64 " moves, ", stats.moves);
                                 printf("%" PRIu64 " compares\n", stats.compares);
-                                for (uint32_t i = 0; i < size; i += 1) {
+                                for (uint32_t i = 0; i < elements; i += 1) {
                                         printf("%13" PRIu32, a[i]);
                                         if ((i + 1) % 5 == 0) {
                                                 printf("\n");
                                         }
                                 }
+                                for (uint32_t i = 0; i < size; i += 1) {
+                                        a[i] = A[i];
+                                }
+                                break;
+			case HEAP:
+				reset(&stats);
+				heap_sort(&stats, a, size);
+                                printf("Heap Sort,"" %" PRIu32 " elements, ", size);
+                                printf("%" PRIu64 " moves, ", stats.moves);
+                                printf("%" PRIu64 " compares\n", stats.compares);
+                                for (uint32_t i = 0; i < elements; i += 1) {
+                                        printf("%13" PRIu32, a[i]);
+                                        if ((i + 1) % 5 == 0) {
+                                                printf("\n");
+                                        }
+                                }
+                                for (uint32_t i = 0; i < size; i += 1) {
+                                        a[i] = A[i];
+                                }
+                                break;
+			case QUICK:
+				reset(&stats);
+				quick_sort(&stats, a, size);
+                                printf("Quick Sort,"" %" PRIu32 " elements, ", size);
+                                printf("%" PRIu64 " moves, ", stats.moves);
+                                printf("%" PRIu64 " compares\n", stats.compares);
+                                for (uint32_t i = 0; i < elements; i += 1) {
+                                        printf("%13" PRIu32, a[i]);
+                                        if ((i + 1) % 5 == 0) {
+                                                printf("\n");
+                                        }
+                                }
+				for (uint32_t i = 0; i < size; i += 1) {
+					a[i] = A[i];
+				}
 				break;
 			}
 		}
