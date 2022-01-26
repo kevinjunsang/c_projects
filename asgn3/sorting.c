@@ -59,8 +59,8 @@ int main(int argc, char **argv) {
 	if (size < elements) {
 		 elements = size;
 	}
-	uint32_t A[size];
-	uint32_t a[size];
+	uint32_t *A = (uint32_t *)malloc(size * sizeof(uint32_t));
+	uint32_t *a = (uint32_t *)malloc(size * sizeof(uint32_t));
 	for (uint32_t i = 0; i < size; i += 1) {
 		A[i] = (random() & 0x3FFFFFFF);
 		a[i] = A[i];
@@ -136,6 +136,8 @@ int main(int argc, char **argv) {
 		}
 		
 	}
+	free(A);
+	free(a);
 }	
 
 
