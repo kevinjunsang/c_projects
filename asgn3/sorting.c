@@ -24,9 +24,9 @@ int main(int argc, char **argv) {
     srandom(13371453);
     uint32_t size = 100;
     uint32_t elements = 100;
-    bool H = false;
+    bool S = false;
     int opt = 0;
-    while ((opt = getopt(argc, argv, "ahbiqr:n:p:H:")) != -1) {
+    while ((opt = getopt(argc, argv, "ahbiqr:n:p:H")) != -1) {
         switch (opt) {
         //getopt for all the cases
         case 'a': s = complement_set(empty_set()); break;
@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
         case 'r': srandom(atoi(optarg)); break;
         case 'n': size = atoi(optarg); break;
         case 'p': elements = atoi(optarg); break;
-        case 'H': H = true; break;
+        case 'H': S = true; break;
         default: fprintf(stderr, "error\n"); return 1;
         }
     }
@@ -137,7 +137,7 @@ int main(int argc, char **argv) {
     //free allocated memory for both arrays
     free(A);
     free(a);
-    if (H) {
+    if (S) {
         fprintf(stderr, "Synopsis\n"
                         "    A collection of sorting algorithms.\n"
                         "\n"
