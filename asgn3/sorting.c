@@ -137,4 +137,22 @@ int main(int argc, char **argv) {
     //free allocated memory for both arrays
     free(A);
     free(a);
+    if (H) {
+        fprintf(stderr, "Synopsis\n"
+                        "    A collection of sorting algorithms.\n"
+                        "\n"
+                        "USAGE\n"
+                        "    ./sorting [-Haibhqn:p:r:] [-n size] [-p elements] [-r seed]\n"
+                        "\n"
+                        "OPTIONS\n"
+                        "   -H               Display program usage and synopsis\n"
+                        "   -a               run all sorting algorithms\n"
+                        "   -i               run insertion sort\n"
+                        "   -b               run batcher sort\n"
+                        "   -h               run heap sort\n"
+                        "   -q               run quick sort\n"
+                        "   -n               set array length default: 100\n"
+                        "   -p               set element count default: 100\n"
+                        "   -r               set SEED default: 13371453\n");
+    }
 }
