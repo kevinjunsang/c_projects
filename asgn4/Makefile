@@ -13,7 +13,7 @@ universe.o: universe.c
 	$(CC) $(CFLAGS) -c universe.c
 
 clean:
-	rm -f sorting *.o
+	rm -f life *.o
 
 format:
 	clang-format -i -style=file *[c,h]
