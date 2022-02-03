@@ -48,3 +48,5 @@ To run the sorting program
 ```
 $make clean
 ```
+## Errors
+having no input for -i results in a program crash
