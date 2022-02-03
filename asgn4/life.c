@@ -66,7 +66,7 @@ int main(int argc, char **argv) {
             break;
         case 'i': in = fopen(optarg, "r"); break;
         case 'o': out = fopen(optarg, "w"); break;
-	case 'h': H = true; break; 
+        case 'h': H = true; break;
         default: fprintf(stderr, "error\n"); return 1;
         }
     }
@@ -116,19 +116,19 @@ int main(int argc, char **argv) {
     endwin();
     fclose(out);
     if (H) {
-	    fprintf(stderr, "Synopsis\n"
-			    "    A simulation of the zero-player game of life.\n"
-			    "\n"
-			    "USAGE\n"
-			    "    ./life [htsn:i:o:] [-n gen_num] [-i input file] [-o output file]\n"
-			    "\n"
-			    "OPTIONS\n"
-			    "    -h              Display program usage and synopsis\n"
-			    "    -t              Determine whether or not Universe is toroidal\n"
-			    "    -s              Disables ncurses\n"
-			    "    -n              set gen_num default: 100\n"
-			    "    -i              set input file default: stdin\n"
-			    "    -o              set output file deafult: stdout\n");
-    }			    
+        fprintf(stderr, "Synopsis\n"
+                        "    A simulation of the zero-player game of life.\n"
+                        "\n"
+                        "USAGE\n"
+                        "    ./life [htsn:i:o:] [-n gen_num] [-i input file] [-o output file]\n"
+                        "\n"
+                        "OPTIONS\n"
+                        "    -h              Display program usage and synopsis\n"
+                        "    -t              Determine whether or not Universe is toroidal\n"
+                        "    -s              Disables ncurses\n"
+                        "    -n              set gen_num default: 100\n"
+                        "    -i              set input file default: stdin\n"
+                        "    -o              set output file deafult: stdout\n");
+    }
     return 0;
 }
