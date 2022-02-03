@@ -142,9 +142,9 @@ void uv_print(Universe *u, FILE *outfile) {
     for (uint32_t row = 0; row < uv_rows(u); row += 1) {
         for (uint32_t col = 0; col < uv_cols(u); col += 1) {
             if (uv_get_cell(u, row, col) == true) {
-                fprintf(outfile, "o ");
+                fprintf(outfile, "o");
             } else {
-                fprintf(outfile, ". ");
+                fprintf(outfile, ".");
             }
         }
         fprintf(outfile, "\n");
