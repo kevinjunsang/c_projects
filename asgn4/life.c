@@ -29,7 +29,7 @@ void next_gen(Universe *a, Universe *b, uint32_t row, uint32_t col) {
             }
             refresh();
         }
-    };
+    }
 }
 
 int main(int argc, char **argv) {
@@ -59,7 +59,7 @@ int main(int argc, char **argv) {
     curs_set(FALSE);
     for (uint32_t count = 0; count < gen_num; count += 1) {
         next_gen(A, B, row, col);
-	clear();
+        clear();
         for (uint32_t r = 0; r < row; r += 1) {
             for (uint32_t c = 0; c < col; c += 1) {
                 if (uv_get_cell(A, r, c) == true) {
@@ -71,7 +71,7 @@ int main(int argc, char **argv) {
             }
         }
         swap(&A, &B);
-	refresh();
+        refresh();
         usleep(50000);
     }
     uv_print(A, out);
