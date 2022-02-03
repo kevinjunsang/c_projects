@@ -46,6 +46,7 @@ int main(int argc, char **argv) {
     bool toroidal = false;
     //declare both the in and out files
     FILE *in;
+    in = stdin;
     FILE *out;
     out = stdout;
     //getopt
