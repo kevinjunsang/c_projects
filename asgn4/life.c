@@ -85,7 +85,7 @@ int main(int argc, char **argv) {
     initscr();
     curs_set(FALSE);
     //for loop through the number of generations
-    for (uint32_t count = 0; count < gen_num; count += 1) {
+    for (uint32_t count = 0; count < gen_num + 1; count += 1) {
         //go to next generation
         next_gen(A, B, row, col);
         clear();
@@ -109,7 +109,7 @@ int main(int argc, char **argv) {
     //print out the final generation to the outfile
     //end the window
     //close the out file
-    uv_print(A, out);
+    uv_print(B, out);
     endwin();
     fclose(out);
     return 0;
