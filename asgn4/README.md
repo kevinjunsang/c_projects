@@ -43,9 +43,8 @@ To run the sorting program
 -n                      sets number of generations, default number is 100
 -i                      sets input file, default is stdin
 -o                      sets output file, dfault is stdout
-
+```
 ## Cleaning
 ```
 $make clean
 ```
-.
