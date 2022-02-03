@@ -41,6 +41,7 @@ void next_gen(Universe *a, Universe *b, uint32_t row, uint32_t col) {
 int main(int argc, char **argv) {
     //create getopt
     int opt = 0;
+    bool H = false;
     bool S = true;
     uint32_t gen_num = 100;
     bool toroidal = false;
@@ -50,7 +51,7 @@ int main(int argc, char **argv) {
     FILE *out;
     out = stdout;
     //getopt
-    while ((opt = getopt(argc, argv, "tsn:i:o:")) != -1) {
+    while ((opt = getopt(argc, argv, "htsn:i:o:")) != -1) {
         switch (opt) {
         case 't': toroidal = true; break;
         case 's': S = false; break;
@@ -65,6 +66,7 @@ int main(int argc, char **argv) {
             break;
         case 'i': in = fopen(optarg, "r"); break;
         case 'o': out = fopen(optarg, "w"); break;
+	case 'h': H = true; break; 
         default: fprintf(stderr, "error\n"); return 1;
         }
     }
@@ -113,5 +115,20 @@ int main(int argc, char **argv) {
     uv_print(B, out);
     endwin();
     fclose(out);
+    if (H) {
+	    fprintf(stderr, "Synopsis\n"
+			    "    A simulation of the zero-player game of life.\n"
+			    "\n"
+			    "USAGE\n"
+			    "    ./life [htsn:i:o:] [-n gen_num] [-i input file] [-o output file]\n"
+			    "\n"
+			    "OPTIONS\n"
+			    "    -h              Display program usage and synopsis\n"
+			    "    -t              Determine whether or not Universe is toroidal\n"
+			    "    -s              Disables ncurses\n"
+			    "    -n              set gen_num default: 100\n"
+			    "    -i              set input file default: stdin\n"
+			    "    -o              set output file deafult: stdout\n");
+    }			    
     return 0;
 }
