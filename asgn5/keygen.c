@@ -105,7 +105,7 @@ int main(int argc, char **argv) {
             "\n"
             "OPTIONS\n"
             "     -h                 Displays program usage and synopsis\n"
-            "     -b                 Sets number of bits for public key n (default = 256)\n"
+            "     -b                 Sets number of bits for public key (default = 256)\n"
             "     -i                 Sets number of iterations for Miller-Rabin (default = 50)\n"
             "     -n                 Sets file for public key (default = rsa.pub)\n"
             "     -d                 Sets file for private key (default = rsa.priv)\n"
