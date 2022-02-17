@@ -73,4 +73,4 @@ Command line options
 -v            Prints out all values
 ```
 ## Errors
-No known error#
+No known errors
