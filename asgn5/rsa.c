@@ -1,12 +1,12 @@
+#include "rsa.h"
+#include "numtheory.h"
+#include "randstate.h"
+
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
-#include <gmp.h>
 #include <stdlib.h>
-
-#include "randstate.h"
-#include "numtheory.h"
-#include "rsa.h"
+#include <gmp.h>
 
 void rsa_make_pub(mpz_t p, mpz_t q, mpz_t n, mpz_t e, uint64_t nbits, uint64_t iters) {
     //making p and q as primes
@@ -31,6 +31,7 @@ void rsa_make_pub(mpz_t p, mpz_t q, mpz_t n, mpz_t e, uint64_t nbits, uint64_t i
     gcd(g, p_1, q_1);
     mpz_mul(n_1, p_1, q_1);
     mpz_fdiv_q(n_1, n_1, g);
+    //e and g always coprime if e is prime
     do {
         make_prime(e, nbits, iters);
         mpz_set(e_1, e);
@@ -40,6 +41,7 @@ void rsa_make_pub(mpz_t p, mpz_t q, mpz_t n, mpz_t e, uint64_t nbits, uint64_t i
 }
 
 void rsa_write_pub(mpz_t n, mpz_t e, mpz_t s, char username[], FILE *pbfile) {
+    //print n, e, s, and the username
     gmp_fprintf(pbfile, "%Zx\n", n);
     gmp_fprintf(pbfile, "%Zx\n", e);
     gmp_fprintf(pbfile, "%Zx\n", s);
@@ -47,6 +49,7 @@ void rsa_write_pub(mpz_t n, mpz_t e, mpz_t s, char username[], FILE *pbfile) {
 }
 
 void rsa_read_pub(mpz_t n, mpz_t e, mpz_t s, char username[], FILE *pbfile) {
+    //read n, e, s, and the username
     gmp_fscanf(pbfile, "%Zx\n", n);
     gmp_fscanf(pbfile, "%Zx\n", e);
     gmp_fscanf(pbfile, "%Zx\n", s);
@@ -67,11 +70,13 @@ void rsa_make_priv(mpz_t d, mpz_t e, mpz_t p, mpz_t q) {
 }
 
 void rsa_write_priv(mpz_t n, mpz_t d, FILE *pvfile) {
+    //write n and d
     gmp_fprintf(pvfile, "%Zx\n", n);
     gmp_fprintf(pvfile, "%Zx\n", d);
 }
 
 void rsa_read_priv(mpz_t n, mpz_t d, FILE *pvfile) {
+    //read n and d
     gmp_fscanf(pvfile, "%Zx\n", n);
     gmp_fscanf(pvfile, "%Zx\n", d);
 }
@@ -83,14 +88,20 @@ void rsa_encrypt(mpz_t c, mpz_t m, mpz_t e, mpz_t n) {
 void rsa_encrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t e) {
     mpz_t out, base;
     mpz_inits(out, base, NULL);
+    //calculate size of block
     uint64_t k;
-    size_t j = 0;
     k = mpz_sizeinbase(n, 2);
     k -= 1;
     k = k / 8;
+    //allocate memory for array size of block
     uint8_t *array;
     array = (uint8_t *) malloc((k) * sizeof(uint8_t));
     array[0] = 0xFF;
+    size_t j = 0;
+    //read in blocks size block size k - 1
+    //import from array to base
+    //encrypt value
+    //print value to outfile
     while ((j = fread(array + 1, sizeof(uint8_t), k - 1, infile)) > 0) {
         mpz_import(base, j + 1, 1, sizeof(uint8_t), 1, 0, array);
         rsa_encrypt(out, base, e, n);
@@ -107,14 +118,20 @@ void rsa_decrypt(mpz_t m, mpz_t c, mpz_t d, mpz_t n) {
 void rsa_decrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t d) {
     mpz_t c, m;
     mpz_inits(c, m, NULL);
+    //calculate size of block
     uint64_t k;
     k = mpz_sizeinbase(n, 2);
     k -= 1;
     k = k / 8;
+    //allocate memory for array size of block k
     uint8_t *array;
     array = (uint8_t *) malloc((k) * sizeof(uint8_t));
     array[0] = 0xFF;
     size_t j = 0;
+    //get inputs from infile
+    //decrypt input
+    //export to array
+    //write exported amount to the outfile
     while (gmp_fscanf(infile, "%Zx\n", c) != EOF) {
         rsa_decrypt(m, c, d, n);
         mpz_export(array, &j, 1, sizeof(uint8_t), 1, 0, m);

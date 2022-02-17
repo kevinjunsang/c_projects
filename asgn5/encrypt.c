@@ -13,7 +13,6 @@
 #include <gmp.h>
 
 int main(int argc, char **argv) {
-    ;
     FILE *in = stdin;
     FILE *out = stdout;
     FILE *pub = stdin;
@@ -23,10 +22,10 @@ int main(int argc, char **argv) {
     int opt = 0;
     while ((opt = getopt(argc, argv, "i:o:n:vh")) != -1) {
         switch (opt) {
-        case 'i': in = fopen(optarg, "r+"); break;
-        case 'o': out = fopen(optarg, "w+"); break;
+        case 'i': in = fopen(optarg, "r"); break;
+        case 'o': out = fopen(optarg, "w"); break;
         case 'n':
-            pub = fopen(optarg, "r+");
+            pub = fopen(optarg, "r");
             pubfile = false;
             break;
         case 'v': V = true; break;
@@ -34,18 +33,22 @@ int main(int argc, char **argv) {
         default: fprintf(stderr, "error\n"); return 1;
         }
     }
+    //default pubfile is rsa.pub
     if (pubfile == true) {
-        pub = fopen("rsa.pub", "r+");
+        pub = fopen("rsa.pub", "r");
     }
     mpz_t n, e, s, name;
     mpz_inits(n, e, s, name, NULL);
     char username[50];
+    //read pub
+    //set mpz name using mpz_set_str
     rsa_read_pub(n, e, s, username, pub);
     mpz_set_str(name, username, 62);
+    //verify
     if (rsa_verify(name, s, e, n) != true) {
         fprintf(stderr, "Verification failed\n");
     }
-
+    //encrypt file
     rsa_encrypt_file(in, out, n, e);
     if (V == true) {
         printf("User = %s\n", username);
@@ -53,6 +56,7 @@ int main(int argc, char **argv) {
         gmp_printf("n (%d bits) = %Zd\n", mpz_sizeinbase(n, 2), n);
         gmp_printf("e (%d bits) = %Zd\n", mpz_sizeinbase(e, 2), e);
     }
+    //close open files and clear mpz_t
     fclose(in);
     fclose(out);
     fclose(pub);

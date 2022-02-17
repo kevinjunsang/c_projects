@@ -6,6 +6,7 @@
 #include "numtheory.h"
 #include "randstate.h"
 
+//from pseudocode
 void gcd(mpz_t d, mpz_t a, mpz_t b) {
     mpz_t t, b_1;
     mpz_init(t);
@@ -21,6 +22,7 @@ void gcd(mpz_t d, mpz_t a, mpz_t b) {
 //r = r, r_1 = r'
 //t = t, t_1 = t'
 //temp = temp for r and t
+//from pseudocode
 void mod_inverse(mpz_t i, mpz_t a, mpz_t n) {
     mpz_t r, r_1, t, t_1, q, temp, mul;
     mpz_inits(r, r_1, t, t_1, q, temp, mul, NULL);
@@ -48,6 +50,7 @@ void mod_inverse(mpz_t i, mpz_t a, mpz_t n) {
     mpz_clears(r, r_1, t, t_1, q, temp, mul, NULL);
 }
 
+//from pseudocode
 void pow_mod(mpz_t out, mpz_t base, mpz_t exponent, mpz_t modulus) {
     mpz_t v, p, ex;
     mpz_inits(v, p, ex, NULL);
@@ -67,6 +70,7 @@ void pow_mod(mpz_t out, mpz_t base, mpz_t exponent, mpz_t modulus) {
     mpz_clears(v, p, ex, NULL);
 }
 
+//from pseudocode
 bool is_prime(mpz_t n, uint64_t iters) {
     if (mpz_cmp_ui(n, 0) == 0) {
         return false;
@@ -120,6 +124,7 @@ bool is_prime(mpz_t n, uint64_t iters) {
     return true;
 }
 
+//from pseudocode
 void make_prime(mpz_t p, uint64_t bits, uint64_t iters) {
     do {
         mpz_urandomb(p, state, bits);

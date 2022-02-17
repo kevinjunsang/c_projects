@@ -13,6 +13,7 @@
 #include <gmp.h>
 
 int main(int argc, char **argv) {
+    //initialize bits and iters as 256 and 50 respectively
     uint64_t mbits = 256;
     uint64_t miters = 50;
     FILE *pbfile = stdin;
@@ -23,16 +24,17 @@ int main(int argc, char **argv) {
     bool V = false;
     bool H = false;
     int opt = 0;
+    //getopt loop
     while ((opt = getopt(argc, argv, "b:i:n:d:s:vh")) != -1) {
         switch (opt) {
         case 'b': mbits = atoi(optarg); break;
         case 'i': miters = atoi(optarg); break;
         case 'n':
-            pbfile = fopen(optarg, "w+");
+            pbfile = fopen(optarg, "w");
             file_1 = false;
             break;
         case 'd':
-            pvfile = fopen(optarg, "w+");
+            pvfile = fopen(optarg, "w");
             file_2 = false;
             break;
         case 's': seed = atoi(optarg); break;
@@ -41,12 +43,14 @@ int main(int argc, char **argv) {
         default: fprintf(stderr, "error\n"); return 1;
         }
     }
+    //default pbfile and pvfile
     if (file_1 == true) {
-        pbfile = fopen("rsa.pub", "w+");
+        pbfile = fopen("rsa.pub", "w");
     }
     if (file_2 == true) {
-        pvfile = fopen("rsa.priv", "w+");
+        pvfile = fopen("rsa.priv", "w");
     }
+    //fileno and fchmod as asgn doc
     int pubfile, privfile;
     pubfile = fileno(pbfile);
     privfile = fileno(pvfile);
@@ -57,21 +61,20 @@ int main(int argc, char **argv) {
 
     mpz_t p, q, n, e, d, mpz_name, sign;
     mpz_inits(p, q, n, e, d, mpz_name, sign, NULL);
-
+    //initialize seed
     randstate_init(seed);
-
+    //make public key and private key
     rsa_make_pub(p, q, n, e, mbits, miters);
     rsa_make_priv(d, e, p, q);
-
+    //initialize temporary d values
     mpz_t d_1, d_2;
     mpz_inits(d_1, d_2, NULL);
-
     mpz_set(d_1, d);
     mpz_set(d_2, d);
-
+    //get name and convert to mpz
     char *name = getenv("USER");
     mpz_set_str(mpz_name, name, 62);
-
+    //sign with temp d value d_1 and write priv with temp d value d_2
     rsa_sign(sign, mpz_name, d_1, n);
     rsa_write_pub(n, e, sign, name, pbfile);
     rsa_write_priv(n, d_2, pvfile);
@@ -85,6 +88,8 @@ int main(int argc, char **argv) {
         gmp_printf("e (%d bits) = %Zd\n", mpz_sizeinbase(e, 2), e);
         gmp_printf("d (%d bits) = %Zd\n", mpz_sizeinbase(d, 2), d);
     }
+    //clear randstate and mpz_t values
+    //close both files
     randstate_clear();
     mpz_clears(p, q, n, e, d, mpz_name, sign, NULL);
     fclose(pbfile);

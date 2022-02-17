@@ -22,10 +22,10 @@ int main(int argc, char **argv) {
     int opt = 0;
     while ((opt = getopt(argc, argv, "i:o:n:vh")) != -1) {
         switch (opt) {
-        case 'i': in = fopen(optarg, "r+"); break;
-        case 'o': out = fopen(optarg, "w+"); break;
+        case 'i': in = fopen(optarg, "r"); break;
+        case 'o': out = fopen(optarg, "w"); break;
         case 'n':
-            priv = fopen(optarg, "r+");
+            priv = fopen(optarg, "r");
             privfile = false;
             break;
         case 'v': V = true; break;
@@ -33,17 +33,21 @@ int main(int argc, char **argv) {
         default: fprintf(stderr, "error\n"); return 1;
         }
     }
+    //default privfile is rsa.priv
     if (privfile == true) {
-        priv = fopen("rsa.priv", "r+");
+        priv = fopen("rsa.priv", "r");
     }
     mpz_t n, d;
     mpz_inits(n, d, NULL);
+    //read private
+    //decrypt file
     rsa_read_priv(n, d, priv);
     rsa_decrypt_file(in, out, n, d);
     if (V == true) {
         gmp_printf("n (%d bits) = %Zd\n", mpz_sizeinbase(n, 2), n);
         gmp_printf("d (%d bits) = %Zd\n", mpz_sizeinbase(d, 2), d);
     }
+    //close open files and clear mpz_t
     fclose(in);
     fclose(out);
     fclose(priv);
