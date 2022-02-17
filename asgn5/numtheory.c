@@ -7,15 +7,16 @@
 #include "randstate.h"
 
 void gcd(mpz_t d, mpz_t a, mpz_t b) {
-	mpz_t t;
+	mpz_t t, b_1;
 	mpz_init(t);
-	while (mpz_cmp_ui(b, 0) > 0) {
-		mpz_set(t, b);
-		mpz_fdiv_r(b, a, b);
+	mpz_init_set(b_1, b);
+	while (mpz_cmp_ui(b_1, 0) > 0) {
+		mpz_set(t, b_1);
+		mpz_fdiv_r(b_1, a, b_1);
 		mpz_set(a, t);
 	}
 	mpz_set(d, a);
-	mpz_clear(t);
+	mpz_clears(t, b_1, NULL);
 }
 //r = r, r_1 = r'
 //t = t, t_1 = t'
@@ -27,8 +28,8 @@ void mod_inverse(mpz_t i, mpz_t a, mpz_t n) {
 	mpz_set(r_1, a);
 	mpz_set_ui(t, 0);
 	mpz_set_ui(t_1, 1);
-	while (mpz_cmpabs_ui(r_1, 0) > 0) {
-		mpz_tdiv_q(q, r, r_1);
+	while (mpz_cmp_ui(r_1, 0) != 0) {
+		mpz_fdiv_q(q, r, r_1);
 		mpz_set(temp, r_1);
 		mpz_mul(mul, q, temp);
 		mpz_sub(r_1, r, mul);

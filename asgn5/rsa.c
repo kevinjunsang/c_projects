@@ -14,11 +14,14 @@ void rsa_make_pub(mpz_t p, mpz_t q, mpz_t n, mpz_t e, uint64_t nbits, uint64_t i
 	//bits = nbits / 2
 	make_prime(p, bits, iters);                     
 	make_prime(q, bits, iters);
+	if (mpz_cmp(p, q) < 0) {
+		mpz_swap(p, q);
+	}
 	//setting n as p * q
 	mpz_mul(n, p, q);
 	//initialzing variables
-	mpz_t g, p_1, q_1, n_1;
-	mpz_inits(g, p_1, q_1, n_1, NULL);
+	mpz_t g, p_1, q_1, n_1, e_1;
+	mpz_inits(g, p_1, q_1, n_1, e_1, NULL);
 	//g = gcd
 	//p_1 = p - 1
 	//q_1 = q - 1
@@ -29,10 +32,11 @@ void rsa_make_pub(mpz_t p, mpz_t q, mpz_t n, mpz_t e, uint64_t nbits, uint64_t i
 	mpz_mul(n_1, p_1, q_1);
 	mpz_fdiv_q(n_1, n_1, g);
 	do {
-		mpz_urandomb(e, state, nbits);
-		gcd(g, e, n_1);
+		make_prime(e, nbits, iters);
+		mpz_set(e_1, e);
+		gcd(g, e_1, n_1);
 	} while(mpz_cmp_ui(g, 1) != 0);
-	mpz_clears(g, p_1, q_1, n_1, NULL);
+	mpz_clears(g, p_1, q_1, n_1, e_1, NULL);
 }
 
 void rsa_write_pub(mpz_t n, mpz_t e, mpz_t s, char username[], FILE *pbfile) {
@@ -80,15 +84,15 @@ void rsa_encrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t e) {
 	mpz_t out, base;
 	mpz_inits(out, base, NULL);
 	uint64_t k;
+	size_t j = 0;
 	k = mpz_sizeinbase(n, 2);
 	k -= 1;
 	k = k / 8;
 	uint8_t *array;
 	array = (uint8_t *) malloc((k) * sizeof(uint8_t));
 	array[0] = 0xFF;
-	size_t t = 0;
-	while ((t = fread(array + 1, sizeof(uint8_t), k - 1, infile)) > 0) {
-		mpz_import(base, k + 1, 1, sizeof(uint8_t), 1, 0, array);
+	while ((j = fread(array + 1, sizeof(uint8_t), k - 1, infile)) > 0) {
+		mpz_import(base, j + 1, 1, sizeof(uint8_t), 1, 0, array);
 		rsa_encrypt(out, base, e, n);
 		gmp_fprintf(outfile, "%Zx\n", out);
 	}
@@ -102,7 +106,7 @@ void rsa_decrypt(mpz_t m, mpz_t c, mpz_t d, mpz_t n) {
 
 void rsa_decrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t d) {
 	mpz_t c, m;
-	mpz_inits(c, m);
+	mpz_inits(c, m, NULL);
 	uint64_t k;
 	k = mpz_sizeinbase(n, 2);
 	k -= 1;
@@ -110,11 +114,12 @@ void rsa_decrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t d) {
 	uint8_t *array;
 	array = (uint8_t *) malloc((k) * sizeof(uint8_t));
 	array[0] = 0xFF;
+	size_t j = 0;
 	while (gmp_fscanf(infile, "%Zx\n", c) != EOF) {
 		rsa_decrypt(m, c, d, n);
-		mpz_export(array, NULL, 1, sizeof(uint8_t), 1, 0, m);
+		mpz_export(array, &j, 1, sizeof(uint8_t), 1, 0, m);
+		fwrite(array + 1, sizeof(char), j - 1, outfile);
 	}
-	fprintf(outfile, "%s\n", array);
 	free(array);
 	mpz_clears(c, m, NULL);
 }
