@@ -38,7 +38,7 @@ rsa.o: rsa.c
 	$(CC) $(CFLAGS) -c rsa.c
 
 clean:
-	rm -f encprypt *.o
+	rm -f encrypt *.o
 	rm -f decrypt *.o
 	rm -f keygen *.o
 	rm -f *.gch
