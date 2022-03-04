@@ -5,12 +5,7 @@
 #include <stdbool.h>
 
 Code code_init(void) {
-    Code c;
-    c.top = 0;
-    for (uint32_t i = 0; i < MAX_CODE_SIZE; i += 1) {
-        c.bits[i] = 0x00;
-    }
-    c.bits[MAX_CODE_SIZE - 1] = 0xFF;
+    Code c = { 0, { 0 } };
     return c;
 }
 
