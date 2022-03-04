@@ -11,7 +11,7 @@
 #include "huffman.h"
 
 int main(void) {
-	return 5;
+    return 5;
 }
 
 //couldn't do the encode program because I couldn't figure out the io.c and huffman.c
@@ -21,5 +21,4 @@ int main(void) {
 //We would use the huffman tree to find out the values signed to the ascii values
 //we would the read and write out the decoded output to the files specified by the getopt loop
 //destroy the tree
-//print out values if getopt says so 
-
+//print out values if getopt says so

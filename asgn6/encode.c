@@ -11,7 +11,7 @@
 #include "huffman.h"
 
 int main(void) {
-	return 5;
+    return 5;
 }
 
 //couldn't do the encode program because I couldn't figure out the io.c and huffman.c
@@ -23,5 +23,3 @@ int main(void) {
 //finally we would use the huffman and io functions to read and write out to different files
 //print out if getopt input says so
 //destroy the tree
-
-
