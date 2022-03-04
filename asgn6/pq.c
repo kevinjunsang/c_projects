@@ -17,7 +17,7 @@ struct PriorityQueue {
 PriorityQueue *pq_create(uint32_t capacity) {
 	PriorityQueue *q = (PriorityQueue *) malloc(sizeof(PriorityQueue));
 	if (q) {
-		q->head = NULL;
+		q->head = 0;
 		q->size = capacity;
 		q->Q = (Node **)malloc(capacity *  sizeof(Node *));
 		if (q->Q) {
@@ -51,22 +51,37 @@ bool pq_full(PriorityQueue *q) {
 	else {
 		return false;
 	}
+}
 
-uint32_t pq_size(PrioirtyQueue *q) {
+uint32_t pq_size(PriorityQueue *q) {
 	return q->size;
 }
 
+//insertion sort from previous assignment
 void insert_sort(PriorityQueue *q) {
-	
+	Node *temp;
+	uint64_t frequency;
+	uint64_t j;
+	for (uint32_t i = 1; i < pq_size(q); i += 1) {
+		j = i;
+		temp = q->Q[i];
+		frequency = q->Q[i]->frequency;
+		while(j > 0 && frequency < q->Q[j - 1]->frequency) {
+			q->Q[j] = q->Q[j - 1];
+			j -= 1;
+		}
+		q->Q[j] = temp;
+	}
+}
 
 bool enqueue(PriorityQueue *q, Node *n) {
 	if (q) {
 		if (pq_full(q)) {
-			return false:
+			return false;
 		}
-		q->Q[q->head] = *n;
+		q->Q[q->head] = n;
 		q->head += 1;
-		
+		insert_sort(q);
 		return true;
 	}
 	else {
