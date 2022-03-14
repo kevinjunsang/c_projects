@@ -1,9 +1,9 @@
-##Assignment 7 - Author Identification
+# Assignment 7 - Author Identification
 
-#Short Description
+## Short Description
 This program uses various algorithms in order to determine the author of a work, using hashtables to store and access data quickly
 
-#Build Files
+## Build Files
 ```
 clang -Wall -Werror -Wpedantic -Wextra
 ```
@@ -14,13 +14,13 @@ make all
 make identify
 ```
 
-#Running
+## Running
 To run the identify program
 ```
 ./identify
 ```
 command line options
-```
+
 -d : Specify path to database of authors and texts. The default is lib.db.
 -n : Specify path to file of noise words to filter out. The default is noise.txt.
 -k : Specify the number of matches. The default is 5.
@@ -30,8 +30,7 @@ command line options
 -m : Set the distance metric to use as theManhattan distance.
 -c : Set the distance metric to use as the cosine distance.
 -h : Display program help and usage.
-```
 
-#errors
+## Errors
 Errors when freeing memory does not pass valgrind
 Errors when computing distance, values are not exactly the same as the given source code
