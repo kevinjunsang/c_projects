@@ -1,4 +1,4 @@
-# Sorting: Putting your affairs in order
+# Sorting
 
 ## Short Description
 Perform four different sorting algorithms. Run sorting algorithms and view number of comparisons and moves
