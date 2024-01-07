@@ -1,4 +1,4 @@
-# Assignment 5 - Public Key Cryptography
+# Public Key Cryptography
 
 ## Short Description
 Program to create RSA keys, additionally encrypt and decrypt inputs
