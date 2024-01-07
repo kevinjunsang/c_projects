@@ -1,4 +1,4 @@
-# Assignment 7 - Author Identification
+# Author Identification
 
 ## Short Description
 This program uses various algorithms in order to determine the author of a work, using hashtables to store and access data quickly
