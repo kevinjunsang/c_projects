@@ -1,4 +1,4 @@
-# Assignment 6 - Huffman Coding
+# Huffman Coding
 
 ## Short Dexcription
 Program to encode a piece of code to make it smaller and subsequently decode it into the original
